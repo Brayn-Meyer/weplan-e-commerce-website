@@ -33,5 +33,7 @@ A comprehensive e-commerce platform **WePlan**, used to plan flight, accomodatio
 4. Edit db.php :
    In the includes file edit the db.php file with your database information
 
+---
+
 ## **PS** 
    In the event that you do not have login information, feel free to create a new account in order to gain access to the rest of the site.
