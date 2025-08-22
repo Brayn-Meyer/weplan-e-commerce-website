@@ -27,10 +27,10 @@ A comprehensive e-commerce platform **WePlan**, used to plan flight, accomodatio
    ```bash
    git clone https://github.com/Brayn-Meyer/weplan-e-commerce-website.git
 
-3. Add database:
+3. Add database :
    Run the the sql file in your MySql.
 
-4. Edit db.php
+4. Edit db.php :
    In the includes file edit the db.php file with your database information
 
 ## **PS** 
