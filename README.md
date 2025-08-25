@@ -1,5 +1,12 @@
-# We Plan 
+# WePlan 
 **E-Commerce Website**  
+
+---
+
+### **Members**
+Brayn Meyer, Zakaria Davids, Zayaan Salie, Oyama Masekwana, Yolisa Nomngcayi
+
+---
 
 ### **System Overview**  
 A comprehensive e-commerce platform **WePlan**, used to plan flight, accomodations, adventures and transport.  
