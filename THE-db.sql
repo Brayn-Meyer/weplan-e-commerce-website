@@ -8,7 +8,11 @@ CREATE TABLE customers (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    phone VARCHAR(20) NOT NULL
+    phone VARCHAR(20) NOT NULL,
+    email_verified TINYINT(1) DEFAULT 0,
+    email_opt_in TINYINT(1) DEFAULT 1,
+    verification_token VARCHAR(255) DEFAULT NULL,
+    unsubscribe_token VARCHAR(255) DEFAULT NULL
 );
 
 CREATE TABLE bookings (
@@ -59,34 +63,8 @@ CREATE TABLE accommodations (
 CREATE TABLE adventures (
     id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
-    cycling BOOLEAN DEFAULT 0,
-    cycling_date DATE NOT NULL,
-    hiking BOOLEAN DEFAULT 0,
-    hiking_date DATE NOT NULL,
-    scuba_diving BOOLEAN DEFAULT 0,
-    scuba_diving_date DATE NOT NULL,
-    surfing BOOLEAN DEFAULT 0,
-    surfing_date DATE NOT NULL,
-    kayaking BOOLEAN DEFAULT 0,
-    kayaking_date DATE NOT NULL,
-    rock_climbing BOOLEAN DEFAULT 0,
-    rock_climbing_date DATE NOT NULL,
-    zoo BOOLEAN DEFAULT 0,
-    zoo_date DATE NOT NULL,
-    skydiving BOOLEAN DEFAULT 0,
-    skydiving_date DATE NOT NULL,
-    bungee_jumping BOOLEAN DEFAULT 0,
-    bungee_jumping_date DATE NOT NULL,
-    cooking_class BOOLEAN DEFAULT 0,
-    cooking_class_date DATE NOT NULL,
-    photo_tour BOOLEAN DEFAULT 0,
-    photo_tour_date DATE NOT NULL,
-    wine_tasting BOOLEAN DEFAULT 0,
-    wine_tasting_date DATE NOT NULL,
-    spa_day BOOLEAN DEFAULT 0,
-    spa_day_date DATE NOT NULL,
-    boat_trip BOOLEAN DEFAULT 0,
-    boat_trip_date DATE NOT NULL,
+    type VARCHAR(100) DEFAULT NULL,
+    date DATE NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (booking_id) REFERENCES bookings(id)
 );
@@ -94,7 +72,7 @@ CREATE TABLE adventures (
 CREATE TABLE transport (
     id INT AUTO_INCREMENT PRIMARY KEY,
     booking_id INT NOT NULL,
-    vehicle_type ENUM('car', 'motorcycle', 'van', 'luxury_car') NOT NULL,
+    vehicle_type ENUM('none', 'car', 'motorcycle', 'van', 'luxury_car') DEFAULT 'none',
     pickup_date DATE NOT NULL,
     dropoff_date DATE NOT NULL,
     price DECIMAL(10,2) NOT NULL,
@@ -112,14 +90,6 @@ CREATE TABLE reviews (
     FOREIGN KEY (user_id) REFERENCES customers(id)
 );
 
--- Add email verification and subscription columns to customers table
-ALTER TABLE customers
-ADD COLUMN email_verified BOOLEAN DEFAULT 0,
-ADD COLUMN email_opt_in BOOLEAN DEFAULT 1,
-ADD COLUMN verification_token VARCHAR(255),
-ADD COLUMN unsubscribe_token VARCHAR(255);
-
--- Create email templates table
 CREATE TABLE email_templates (
     id INT AUTO_INCREMENT PRIMARY KEY,
     template_name VARCHAR(50) NOT NULL,
@@ -129,7 +99,6 @@ CREATE TABLE email_templates (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert welcome email template
 INSERT INTO email_templates (template_name, subject, content, is_html) VALUES
 ('welcome_email', 'Welcome to WePlan Travels!', 
 '<h1>Welcome to WePlan Travels, {first_name}!</h1>
