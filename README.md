@@ -3,7 +3,7 @@
 
 ---
 
-**Members**
+### **Members**
 Brayn Meyer, Zakaria Davids, Zayaan Salie, Oyama Masekwana, Yolisa Nomngcayi
 
 ---
