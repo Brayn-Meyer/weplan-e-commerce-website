@@ -384,7 +384,7 @@ $bookingReference = generateBookingReference();
             <div class="success-alert">
                 <i class="success-icon fas fa-check-circle"></i>
                 <h3>Thank you, <?= htmlspecialchars($_SESSION['user']['firstname'] ?? 'Guest'); ?>!</h3>
-                <p>We've sent a confirmation email to <?= htmlspecialchars($_SESSION['user']['email'] ?? 'your email'); ?>.</p>
+                <p>Your booking has been confirmed.</p>
                 <p>Your booking reference is:</p>
                 <div class="reference-badge"><?= $bookingReference; ?></div>
             </div>

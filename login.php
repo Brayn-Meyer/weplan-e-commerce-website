@@ -2,9 +2,6 @@
 session_start();
 include "includes/db.php";
 
-require 'vendor/autoload.php'; // For PHPMailer
-require 'email_functions.php'; // NEW: Our email functions
-
 // Handle logout
 if (isset($_GET['logout'])) {
     session_destroy();
@@ -48,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $loginError = "Invalid username or password";
         }
     }
-    // SIGNUP (ONLY ADDING EMAIL FUNCTIONALITY)
+    // SIGNUP
     elseif (isset($_POST['signup'])) {
         $first_name = trim($_POST['signup_firstname']);
         $last_name = trim($_POST['signup_lastname']);
@@ -67,10 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("INSERT INTO customers (first_name, last_name, username, password, email, phone) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->execute([$first_name, $last_name, $username, $passwordHash, $email, $phone]);
             $customer_id = $pdo->lastInsertId();
-            
-            // NEW: Send welcome email after successful signup
-            $emailSystem = new EmailSystem($pdo);
-            $emailSystem->sendWelcomeEmail($customer_id);
             
             $_SESSION['customer_id'] = $customer_id;
             $_SESSION['username'] = $username;

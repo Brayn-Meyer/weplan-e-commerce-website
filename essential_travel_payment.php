@@ -3,7 +3,6 @@ session_start();
 include "includes/header.php";
 include "includes/db.php";
 include "includes/functions.php";
-include "email_functions.php"; // Add this line to include email functions
 
 // Your existing PHP code remains unchanged
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -52,24 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         
         $pdo->commit();
-        
-        // Send booking confirmation email
-        $emailSystem = new EmailSystem($pdo);
-        
-        // Prepare booking details for email
-        $bookingDetails = [
-            'booking_reference' => $bookingReference,
-            'total_price' => $totalPrice,
-            'package' => "Essential Travel",
-            'flight_details' => isset($_SESSION['flight']) ? $_SESSION['flight'] : null
-        ];
-        
-        // Send the confirmation email
-        $emailSent = $emailSystem->sendBookingConfirmation($customerId, $bookingDetails);
-        
-        if (!$emailSent) {
-            error_log("Failed to send booking confirmation email for booking ID: " . $bookingId);
-        }
         
     } catch (Exception $e) {
         $pdo->rollBack();
@@ -131,12 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .btn-main:hover {
             background: linear-gradient(to right, #db2777, #e11d48);
         }
-        .email-notice {
-            text-align: center;
-            margin-top: 1rem;
-            color: #4b5563;
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
@@ -145,7 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="review-summary">
             <p><strong>Package:</strong> Essential Travel</p>
             <p><strong>Booking Reference:</strong> <?= htmlspecialchars($bookingReference) ?></p>
-            <p class="email-notice">A confirmation email has been sent to your email address.</p>
         </div>
         <p style="text-align:center;">You can find a reference to your trip on the bookings page. 🙌</p>
         <a href="bookings.php" class="btn-main">Bookings</a>

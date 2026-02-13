@@ -67,7 +67,7 @@ try {
         <div class="card-body">
             <p class="lead">Thank you for your booking, <?php echo htmlspecialchars($_SESSION['customer']['firstName'] ?? 'Guest'); ?>!</p>
             <p>Your booking reference is: <strong><?php echo $bookingReference; ?></strong></p>
-            <p>We've sent a confirmation email to <?php echo htmlspecialchars($_SESSION['customer']['email'] ?? 'your email'); ?>.</p>
+            <p>Your booking has been confirmed.</p>
         </div>
     </div>
 
